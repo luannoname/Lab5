@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 255)->comment('Tên sản phẩm');
             $table->integer('price');
             $table->integer('quantity');
-            $table->string('image', 255);
+            $table->string('image', 255)->nullable();
             $table->foreignId('category_id')->constrained();
             $table->tinyInteger('status')->default(1)->nullable();
             $table->timestamps();
