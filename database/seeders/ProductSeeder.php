@@ -13,15 +13,16 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
+        //
         $proSeed = [];
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 100; $i++){
             $proSeed[] = [
-                'name' => 'San pham so' .$i,
+                'name' => 'Sản phẩm '.$i,
                 'price' => rand(1000, 10000),
-                'quantity' => rand(1, 100),
+                'quantity' => rand(10, 100),
                 'image' => null,
-                'category_id' => rand(1, 10),
-                'status' => 1,
+                'category_id' => rand(1,10),
+                'status' => 1
             ];
         }
         DB::table('products')->insert($proSeed);

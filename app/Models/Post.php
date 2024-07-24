@@ -8,25 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-
-    // điều chỉnh kết nối đến bảng
-    // protected $table = "post";
-
-    // khai báo tên khóa chính
-    // protected $primaryKey = "Ten khoa chinh khac";
-
-    // khai báo kiểu dữ liệu cho khóa chính mới 
-    // protected $keyType = "string";
-    
-    // tắt tự động tăng khóa chính
-    // protected $incrementing = false;
-
-    // điều chỉnh kết nối db
-    // protected $connection = "tên kết nối";
-
-    protected $fillable = [
+    // điểu chỉnh kết đến bảng
+//    protected $table = "ten bang muon ket noi";
+//    // khai bao lai tên khóa chính
+//    protected $primaryKey = "Ten khoan chinh khac";
+//
+//    // khai bao kieuduju lieu cho khoa chinh moi
+//    protected $keyType = "kieu du lieu";
+//    // tat tăng tư dong cho kho chinh
+//    public $incrementing = false;
+//    // diều chỉnh ket noi db
+//    protected $connection = "ten ket noi";
+    protected $fillable =[
         'title',
-        'content',
+        'content'
     ];
-    
 }

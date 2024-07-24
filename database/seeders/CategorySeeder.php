@@ -13,14 +13,14 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        // Thêm 10 bản dự liệu mẫu
         $cateSeed = [];
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; $i++ ){
             $cateSeed[] = [
-                'name' => 'Danh muc so' .$i,
-                'status' => 1,
+                'name' => 'Danh mục so '.$i,
+                'status' => 1
             ];
         }
         DB::table('categories')->insert($cateSeed);
-
     }
 }
