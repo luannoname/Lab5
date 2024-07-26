@@ -48,5 +48,10 @@ class Product extends Model
 //            ->paginate(10);
         return $query;
     }
-
+    public function insertDataProduct($params){
+        $params['status'] = 1;
+        $params['created_at'] = date('Y-m-d H:i:s');
+        $res = Product::query()->create($params);
+        return $res;
+    }
 }

@@ -12,7 +12,16 @@
             </ul>
         </div>
     @endif
-
+    @if(session('success'))
+        <div>
+            {{session('success')}}
+        </div>
+    @endif
+    @if(session('error'))
+        <div>
+            {{session('error')}}
+        </div>
+    @endif
     <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">

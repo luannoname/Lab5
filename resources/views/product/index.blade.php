@@ -27,7 +27,7 @@
                 @if(!isset($item->image))
                     Không có hình ảnh
                 @else
-                    {{$item->image}}
+                    <img src="{{Storage::url($item->image)}}">
                 @endif
             </td>
             <td>{{$item->loadAllCategory->name}}</td>
