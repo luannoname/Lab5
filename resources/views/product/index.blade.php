@@ -14,6 +14,7 @@
             <th scope="col">image</th>
             <th scope="col">category name</th>
             <th scope="col">status</th>
+            <th>Thao Tác</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +35,14 @@
 {{--                <td>{{$item->catename}}</td>--}}
 {{--            <td>{{$listCate[$item->category_id]}}</td>--}}
             <td>{{$item->status}}</td>
+            <td>
+                <a href="{{route('product.edit', ['id'=>$item->id])}}">EDIT</a>
+                <form action="{{route('product.destroy', ['id'=>$item->id])}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                     <button type="submit">DELETE</button>
+                </form>
+            </td>
         </tr>
         @endforeach
         </tbody>

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -103,6 +104,12 @@ class ProductController extends Controller
     public function edit(int $id)
     {
         //
+        $objCate = new Category();
+        $this->view['listCate'] = $objCate->loadAllCate();
+        $objPro = new Product();
+        $this->view['listPro'] = $objPro->getDataProductById($id);
+        return view('product.edit', $this->view);
+//        dd($id);
     }
 
     /**
@@ -111,6 +118,32 @@ class ProductController extends Controller
     public function update(Request $request, int $id)
     {
         //
+//        dd($id);
+        $objPro = new Product();
+        $check = $objPro->getDataProductById($id);
+
+        if ($check){
+            $imageOld = $check->image;
+            $data = $request->except('image');
+            if ($request->hasFile('image') && $request->file('image')->isValid()){
+                $data['image'] = $this->uploadFile($request->file('image'));
+                $flag = true;
+            }else{
+                $data['image'] = $imageOld;
+            }
+            $res = $objPro->updateDataProduc($data, $id);
+            if($res){
+                if($request->hasFile('image') && isset($imageOld) && Storage::disk('public')->exists($imageOld)){
+                    Storage::disk('public')->delete($imageOld);
+                }
+                return redirect()->back()->with('success', 'Sản phẩm đã được chỉnh sửa thành công');
+            }else{
+                return redirect()->back()->with('error', 'Sản phẩm đã được chỉnh sửa không thành công');
+            }
+        }else{
+            return redirect()->back()->with('error', 'ID sản phẩm không phù hợp');
+        }
+
     }
 
     /**
@@ -119,5 +152,22 @@ class ProductController extends Controller
     public function destroy(int $id)
     {
         //
+        $objPro = new Product();
+        $check = $objPro->getDataProductById($id);
+        $imageOld = $check->image;
+        if ($check){
+            $res = $objPro->deleteDataProduct($id);
+            if($res){
+//                if(isset($imageOld) && Storage::disk('public')->exists($imageOld)){
+//                    Storage::disk('public')->delete($imageOld);
+//                }
+                return redirect()->back()->with('success', 'Sản phẩm đã được xóa thành công');
+            }else{
+                return redirect()->back()->with('error', 'Sản phẩm đã được xoas không thành công');
+            }
+        }else{
+            return redirect()->back()->with('error', 'ID sản phẩm không phù hợp');
+        }
+//        dd($id);
     }
 }

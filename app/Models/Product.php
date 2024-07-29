@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'products';
     protected $fillable = [
         'id',
@@ -52,6 +54,21 @@ class Product extends Model
         $params['status'] = 1;
         $params['created_at'] = date('Y-m-d H:i:s');
         $res = Product::query()->create($params);
+        return $res;
+    }
+    public function getDataProductById($id){
+        $query = Product::query()->find($id);
+        return $query;
+    }
+    public function updateDataProduc($params, $id){
+        $params['updated_at'] = date('Y-m-d H:i:s');
+       $res =  Product::query()
+           ->find($id)
+           ->update($params);
+       return $res;
+    }
+    public function deleteDataProduct($id){
+        $res = Product::query()->find($id)->delete();
         return $res;
     }
 }
